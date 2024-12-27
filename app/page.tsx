@@ -95,9 +95,9 @@ export default function Page() {
               placeholder="Search"
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
-              className="w-full font-normal rounded-md focus:outline-none  bg-white py-2 pl-10 pr-4 text-gray-900 placeholder:text-gray-400/80 sm:py-2 sm:pl-16  text-sm sm:text-sm lg:text-xl xl:text-xl xl:max-2xl:text-xl xl:max-2xl:py-2 xl:max-2xl:pl-16 tracking-wide"
+              className="w-full font-normal rounded-md focus:outline-none  bg-white py-2 pl-10 pr-4 text-gray-900 placeholder:text-gray-400/80 sm:py-2 sm:pl-16  text-sm sm:text-sm lg:text-[16px] xl:text-[16px] xl:max-2xl:text-[16px] xl:max-2xl:py-2 xl:max-2xl:pl-16 tracking-wide"
             />
-            <CiSearch className="absolute left-3 top-1/2  -translate-y-1/2 text-gray-400 sm:left-5 h-5 w-5 sm:h-8 sm:w-8 xl:max-2xl:w-8 xl:max-2xl:h-8" />
+            <CiSearch className="absolute left-3 top-1/2  -translate-y-1/2 text-gray-400 sm:left-5 h-5 w-5 sm:h-7 sm:w-7 xl:max-2xl:w-7 xl:max-2xl:h-7" />
           </div>
         </div>
       </div>
@@ -154,16 +154,16 @@ export default function Page() {
                 </p>
                 <Link
                   href={`${section.link}`}
-                  className="inline-flex items-center text-xl xl:max-2xl:text-lg sm:text-xl lg:text-lg xl:text-md  font-medium text-black/90 hover:text-gray-900 hover:underline"
+                  className="inline-flex items-center text-xl xl:max-2xl:text-[16px] sm:text-xl lg:text-lg xl:text-[16px]  font-medium text-black/90 hover:text-gray-900 hover:underline"
                 >
                   Learn more
-                  <span className="ml-2">
+                  <span className="ml-1">
                     <Image
                       src="/images/arrow-right.png"
                       alt="arrow"
                       height="40"
                       width="40"
-                      className="h-6 w-6 xl:max-2xl:h-6 xl:max-2xl:w-6"
+                      className="h-5 w-5 xl:max-2xl:h-5 xl:max-2xl:w-5"
                     />
                   </span>
                 </Link>
