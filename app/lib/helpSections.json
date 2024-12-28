@@ -1,0 +1,39 @@
+[
+    {
+      "icon": "/images/discover.png",
+      "link": "/abouttheclientlistsection",
+      "title": "About the Client List Section",
+      "description": "In this section, you’ll find detailed information about player lists, email lists, balances, bonuses, and restrictions."
+    },
+    {
+      "icon": "/images/monitor-mobbile.png",
+      "link": "/aboutreports",
+      "title": "About Reports",
+      "description": "This section provides insights into betting reports, transaction records, and periodic results for comprehensive analysis."
+    },
+    {
+      "icon": "/images/dollar-circle.png",
+      "link": "/aboutagentsmanagement",
+      "title": "About Agents Management",
+      "description": "Here, you can access information about agent lists, transaction details, and payment agents for efficient management."
+    },
+    {
+      "icon": "/images/info-circle.png",
+      "link": "/aboutpamusersmanagement",
+      "title": "About PAM Users Management",
+      "description": "This section offers information on user lists, access history, and roles to help manage platform permissions."
+    },
+    {
+      "icon": "/images/lock.png",
+      "link": "/aboutsiteconfiguration",
+      "title": "About Site Configuration",
+      "description": "Find guidance on managing banners, editing static pages, and handling translations to customize your platform."
+    },
+    {
+      "icon": "/images/key.png",
+      "link": "/aboutpartnerconfiguration",
+      "title": "About Partner Configuration",
+      "description": "In this section, you’ll find information about service integrations and payment methods to streamline your operations."
+    }
+  ]
+  

@@ -5,7 +5,9 @@ import { CiSearch } from "react-icons/ci";
 import Link from "next/link";
 import { MdArrowBackIosNew } from "react-icons/md";
 import { MdArrowForwardIos } from "react-icons/md";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
+import aboutAgent from "../lib/aboutAgent.json";
 interface SearchResult {
   question: string;
   answer: string;
@@ -14,45 +16,26 @@ interface SearchResult {
 export default function Page() {
   const [searchQuery, setSearchQuery] = useState("");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [popupImage, setPopupImage] = useState<string | null>(null);
 
-  const results: SearchResult[] = [
-    {
-      question: "How to export reports",
-      answer: `
-        
-        <ul>
-  <li>1. Run the report needed</li>
-  <li>2. Click right on any section of the dashboard</li>
-  <li>3. Click 'Export'</li>
-  <li>4. Save your report</li>
-</ul>
+  const results: SearchResult[] = aboutAgent;
+  useEffect(() => {
+    const handleImageClick = (event: Event) => {
+      const target = event.target as HTMLImageElement;
+      if (target.classList.contains("image-popup")) {
+        setPopupImage(target.src);
+      }
+    };
 
-        <img src="/images/download41.png" alt="Date Filtering Example" class="w-full xl:max-2xl:w-[50%] sm:w-[50%] h-full rounded-md mt-4"/>
-        <img src="/images/download42.png" alt="Date Filtering Example" class="w-full xl:max-2xl:w-[50%] sm:w-[50%] h-full rounded-md mt-4"/>
-         
-      `,
-    },
-    {
-      question: "How to share a report",
-      answer: `
-        <ol>
-  <li>1. Click Report Settings and select the items needed to customize your report.</li>
-  <li>2. Once all items are selected (or unselected) as needed, click 'apply'.</li>
-  <li>3. Click 'save' (disk logo):<br/> In this section you can create your own report name.</li>
-  <li>4. Click 'Save new report'.</li>
-  <li>5. Click the Report Options (three dots).</li>
-  <li>6. Besides downloading your new template, you can also share your template via Link.</li>
-</ol>
+    // Attach click listener to the document
+    document.addEventListener("click", handleImageClick);
 
-        <img src="/images/download43.png" alt="Date Filtering Example" class="w-full xl:max-2xl:w-[50%] sm:w-[50%] h-full rounded-md mt-4"/>
-        <img src="/images/download44.png" alt="Date Filtering Example" class="w-full xl:max-2xl:w-[50%] sm:w-[50%] h-full rounded-md mt-4"/>
-        <img src="/images/download45.png" alt="Date Filtering Example" class="w-full xl:max-2xl:w-[50%] sm:w-[50%] h-full rounded-md mt-4"/>
-  
-         
-      `,
-    },
-  ];
+    return () => {
+      document.removeEventListener("click", handleImageClick);
+    };
+  }, []);
 
+  const closePopup = () => setPopupImage(null);
   return (
     <div className="min-h-screen bg-[#f9f9f9]">
       {/* Header */}
@@ -70,13 +53,11 @@ export default function Page() {
           <div className="flex flex-col gap-4 md:max-lg:flex-col lg:max-xl:flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row 2xl:flex-row sm:items-center sm:justify-between sm:pt-5 md:max-lg:pt-16 lg:max-xl:pt-16 xl:max-2xl:pt-5">
             <div className="w-full">
               <h1 className=" text-2xl font-semibold text-white sm:text-[24px] xl:max-2xl:text-[24px]">
-                About Report
+                About Agents Management
               </h1>
               <p className="text-sm text-gray-300/85 sm:text-[16px] xl:max-2xl:text-[16px] xl:max-2xl:leading-5 leading-5 tracking-wide py-3">
-                Lorem ipsum is simply dummy text of the printing and typesetting
-                industry.
-                <br /> Lorem ipsum has been the industry&apos;s standard dummy
-                text eve.
+                Here, you can access information about agent lists, transaction
+                details, and payment agents for efficient management.
               </p>
             </div>
             <div className="relative w-full sm:max-w-sm sm:ml-auto md:max-lg:max-w-full lg:max-xl:max-w-full">
@@ -95,9 +76,9 @@ export default function Page() {
 
       {/* Results Section */}
       <div className="mx-auto py-8 sm:py-b">
-        <h2 className="mb-8 text-xl sm:text-2xl font-semibold text-[#011e50] px-2 xl:max-2xl:text-2xl">
+        {/* <h2 className="mb-8 text-xl sm:text-2xl font-semibold text-[#011e50] px-2 xl:max-2xl:text-2xl">
           Search Results: 8 Results
-        </h2>
+        </h2> */}
 
         {/* Results List */}
         <div className="space-y-4 px-2">
@@ -137,6 +118,20 @@ export default function Page() {
           ))}
         </div>
       </div>
+      {popupImage &&
+        ReactDOM.createPortal(
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75"
+            onClick={closePopup}
+          >
+            <img
+              src={popupImage}
+              alt="Popup"
+              className="w-[100%] sm:w-[70%] md:w-[100%] lg:w-[100%] xl:w-[70%] xl:max-2xl:w-[70%]   rounded-md"
+            />
+          </div>,
+          document.body
+        )}
     </div>
   );
 }

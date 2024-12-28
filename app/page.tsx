@@ -1,9 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
 import { MdArrowForwardIos } from "react-icons/md";
 import Link from "next/link";
 import { CiSearch } from "react-icons/ci";
+import helpSection from "./lib/helpSections.json";
+import allDocuemnts from "./lib/allDocuments.json";
 import Image from "next/image";
 type HelpSection = {
   icon: React.ReactNode;
@@ -11,69 +14,54 @@ type HelpSection = {
   link: string;
   description: string;
 };
-
+type AllDocuments = {
+  question: string;
+  answer: string;
+  link: string;
+};
 export default function Page() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<string[]>([]);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [popupImage, setPopupImage] = useState<string | null>(null);
+  const [searchResults, setSearchResults] = useState<
+    { question: string; answer: string; link: string }[]
+  >([]);
 
-  const helpSections: HelpSection[] = [
-    {
-      icon: "/images/discover.png",
-      link: "aboutclient",
-      title: "About Client List",
-      description:
-        "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text eve.",
-    },
-    {
-      icon: "/images/monitor-mobbile.png",
-      link: "/aboutreport",
-      title: "About Reports",
-      description:
-        "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text eve.",
-    },
-    {
-      icon: "/images/dollar-circle.png",
-      link: "/aboutagent",
-      title: "About Agents Management",
-      description:
-        "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text eve.",
-    },
-    {
-      icon: "/images/info-circle.png",
-      link: "aboutclient",
-      title: "About Pam User",
-      description:
-        "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text eve.",
-    },
-    {
-      icon: "/images/lock.png",
-      link: "aboutclient",
-      title: "About Site Configuration",
-      description:
-        "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text eve.",
-    },
-    {
-      icon: "/images/key.png",
-      link: "aboutclient",
-      title: "About Partner Configuration",
-      description:
-        "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text eve.",
-    },
-  ];
+  const helpSections: HelpSection[] = helpSection;
+
+  const AllDocuments: AllDocuments[] = allDocuemnts;
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
     if (query.trim()) {
-      const results = helpSections
-        .filter((section) =>
-          section.description.toLowerCase().includes(query.toLowerCase())
-        )
-        .map((section) => section.description);
-      setSearchResults(results);
+      const results = AllDocuments.filter(
+        (section) =>
+          section.question.toLowerCase().includes(query.toLowerCase()) ||
+          section.answer.toLowerCase().includes(query.toLowerCase())
+      );
+      setSearchResults(results); // No type error now
     } else {
       setSearchResults([]);
     }
   };
+
+  useEffect(() => {
+    const handleImageClick = (event: Event) => {
+      const target = event.target as HTMLImageElement;
+      if (target.classList.contains("image-popup")) {
+        setPopupImage(target.src);
+      }
+    };
+
+    // Attach click listener to the document
+    document.addEventListener("click", handleImageClick);
+
+    return () => {
+      document.removeEventListener("click", handleImageClick);
+    };
+  }, []);
+
+  const closePopup = () => setPopupImage(null);
 
   return (
     <div className="min-h-screen bg-[#f9f9f9]">
@@ -84,8 +72,8 @@ export default function Page() {
             Help Center
           </h1>
           <p className="text-sm text-gray-300/85 sm:text-[16px] xl:max-2xl:text-[16px] leading-8 tracking-wide py-3">
-            Lorem ipsum is simply dummy text of the printing and typesetting
-            industry.
+            Welcome to our Help Center, your go-to resource for guidance and
+            support on our platform.
           </p>
 
           {/* Search Input */}
@@ -111,16 +99,51 @@ export default function Page() {
             </h2>
             <div className="space-y-4 px-2">
               {searchResults.map((result, index) => (
-                <Link
+                // <Link
+                //   key={index}
+                //   href={result.link} // Use the dynamic link
+                //   className="group flex w-full items-center justify-between rounded-lg bg-[#ffffff] py-5 px-5 text-left transition-colors hover:bg-gray-200"
+                // >
+                //   <span className="text-gray-900 tracking-wide text-xl sm:text-md xl:max-2xl:text-xl">
+                //     {result.question}
+                //   </span>
+                //   <MdArrowForwardIos className="h-5 w-5 sm:h-6 sm:w-6 md:h-6 md:w-6 lg:h-6 lg:w-6 xl:max-2xl:h-6 xl:max-2xl:w-6 text-black transition-transform group-hover:translate-x-1" />
+                // </Link>
+
+                <div
                   key={index}
-                  href={`/question/${index}`} // Dynamic route using index
-                  className="group flex w-full items-center justify-between rounded-lg bg-[#ffffff] py-5 px-5 text-left transition-colors hover:bg-gray-200"
+                  className="overflow-hidden rounded-lg bg-[#ffffff]"
                 >
-                  <span className="text-gray-900 tracking-wide text-xl sm:text-md xl:max-2xl:text-xl">
-                    {result}
-                  </span>
-                  <MdArrowForwardIos className="h-28 w-28 sm:h-6 sm:w-6 md:h-6 md:w-6  lg:h-6 lg:w-6 xl:max-2xl:h-6 xl:max-2xl:w-6 text-black transition-transform group-hover:translate-x-1" />
-                </Link>
+                  <button
+                    onClick={() =>
+                      setOpenIndex(openIndex === index ? null : index)
+                    }
+                    className="group flex w-full items-center justify-between p-4 text-left transition-colors hover:bg-gray-200"
+                  >
+                    <span className="text-gray-900 tracking-wide text-md sm:text-2xl md:text-lg lg:text-lg xl:text-lg xl:max-2xl:text-lg">
+                      {result.question}
+                    </span>
+                    <MdArrowForwardIos
+                      className={`h-5 w-5 sm:h-6 sm:w-6 md:h-6 md:w-6  lg:h-6 lg:w-6 xl:max-2xl:h-6 xl:max-2xl:w-6 text-black  transition-transform duration-200 ease-in-out group-hover:translate-x-1 ${
+                        openIndex === index ? "rotate-90" : ""
+                      }`}
+                    />
+                  </button>
+
+                  {/* Answer Panel */}
+                  <div
+                    className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out ${
+                      openIndex === index
+                        ? "max-h-full opacity-100"
+                        : "max-h-0 opacity-0"
+                    }`}
+                  >
+                    <div
+                      dangerouslySetInnerHTML={{ __html: result.answer }}
+                      className="border-t border-gray-200 bg-gray-50 p-4 text-gray-900 tracking-wide text-md sm:text-2xl md:text-lg lg:text-lg xl:text-lg xl:max-2xl:text-lg"
+                    ></div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
@@ -172,6 +195,20 @@ export default function Page() {
           </div>
         </div>
       </div>
+      {popupImage &&
+        ReactDOM.createPortal(
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75"
+            onClick={closePopup}
+          >
+            <img
+              src={popupImage}
+              alt="Popup"
+              className="w-[100%] sm:w-[70%] md:w-[100%] lg:w-[100%] xl:w-[70%] xl:max-2xl:w-[70%]   rounded-md"
+            />
+          </div>,
+          document.body
+        )}
     </div>
   );
 }

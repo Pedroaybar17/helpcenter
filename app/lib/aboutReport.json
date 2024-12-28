@@ -1,0 +1,12 @@
+
+[
+        {
+          "question": "How to export reports",
+          "answer": "<ul><li>1. Run the report needed</li><li>2. Click right on any section of the dashboard</li><li>3. Click 'Export'</li><li>4. Save your report</li></ul><img src=\"/images/download41.png\" alt=\"Date Filtering Example\" class=\"w-full image-popup  xl:max-2xl:w-[50%] sm:w-[50%] h-full rounded-md mt-4\"/><img src=\"/images/download42.png\" alt=\"Date Filtering Example\" class=\"w-full image-popup  xl:max-2xl:w-[50%] sm:w-[50%] h-full rounded-md mt-4\"/>"
+        },
+        {
+          "question": "How to share a report",
+          "answer": "<ol><li>1. Click Report Settings and select the items needed to customize your report.</li><li>2. Once all items are selected (or unselected) as needed, click 'apply'.</li><li>3. Click 'save' (disk logo):<br/> In this section you can create your own report name.</li><li>4. Click 'Save new report'.</li><li>5. Click the Report Options (three dots).</li><li>6. Besides downloading your new template, you can also share your template via Link.</li></ol><img src=\"/images/download43.png\" alt=\"Date Filtering Example\" class=\"w-full image-popup  xl:max-2xl:w-[50%] sm:w-[50%] h-full rounded-md mt-4\"/><img src=\"/images/download44.png\" alt=\"Date Filtering Example\" class=\"w-full image-popup  xl:max-2xl:w-[50%] sm:w-[50%] h-full rounded-md mt-4\"/><img src=\"/images/download45.png\" alt=\"Date Filtering Example\" class=\"w-full image-popup  xl:max-2xl:w-[50%] sm:w-[50%] h-full rounded-md mt-4\"/>"
+        }
+]
+      
