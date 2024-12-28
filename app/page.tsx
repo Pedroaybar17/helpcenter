@@ -66,12 +66,12 @@ export default function Page() {
   return (
     <div className="min-h-screen bg-[#f9f9f9]">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#001d4e] to-[#010000] px-4 py-8 sm:px-12 md:px-12 lg:px-12 xl:px-12 2xl:px-12 sm:py-10 md:py-10 h-[300px] sm:h-[220px] md:h[350px] lg:h[350px] xl:h[350px] ">
+      <div className="bg-gradient-to-r from-[#001d4e] to-[#010000] px-4 py-8 sm:px-12 md:px-12 lg:px-12 xl:px-12 2xl:px-12 sm:py-10 md:py-10 h-[250px] sm:h-[220px] md:h[350px] lg:h[350px] xl:h[350px] ">
         <div className="mx-auto ">
           <h1 className=" text-2xl font-semibold text-white sm:text-[24px] xl:max-2xl:text-[24px]">
             Help Center
           </h1>
-          <p className="text-sm text-gray-300/85 sm:text-[16px] xl:max-2xl:text-[16px] leading-8 tracking-wide py-3">
+          <p className="text-sm mt-3 sm:mt-0 xl:max-2xl:mt-0 mb-12 sm:mb-0 xl:max-2xl:mb-0 text-gray-300/85 sm:text-[16px] xl:max-2xl:text-[16px] xl:max-2xl:leading-5 leading-5 tracking-wide py-3">
             Welcome to our Help Center, your go-to resource for guidance and
             support on our platform.
           </p>

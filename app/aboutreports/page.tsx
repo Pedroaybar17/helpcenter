@@ -40,7 +40,7 @@ export default function Page() {
   return (
     <div className="min-h-screen bg-[#f9f9f9]">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#001d4e] to-[#010000] px-4 py-8 sm:px-12 md:px-12 lg:px-12 xl:px-12 2xl:px-12 sm:py-10 md:py-10 h-[300px] sm:h-[220px] md:h[220px] lg:h[220px] xl:h[220px]  md:max-lg:h-[350px] lg:max-xl:h-[350px] xl:max-2xl:h-[220px]">
+      <div className="bg-gradient-to-r from-[#001d4e] to-[#010000] px-4 py-8 sm:px-12 md:px-12 lg:px-12 xl:px-12 2xl:px-12 sm:py-10 md:py-10 h-[250px] sm:h-[220px] md:h[220px] lg:h[220px] xl:h[220px]  md:max-lg:h-[350px] lg:max-xl:h-[350px] xl:max-2xl:h-[220px]">
         <div className="mx-auto">
           {/* Back Button */}
           <Link

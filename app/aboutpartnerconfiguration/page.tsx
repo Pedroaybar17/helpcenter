@@ -76,7 +76,7 @@ export default function Page() {
   return (
     <div className="min-h-screen bg-[#f9f9f9]">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#001d4e] to-[#010000] px-4 py-8 sm:px-12 md:px-12 lg:px-12 xl:px-12 2xl:px-12 sm:py-10 md:py-10 h-[300px] sm:h-[220px] md:h[220px] lg:h[220px] xl:h[220px]  md:max-lg:h-[350px] lg:max-xl:h-[350px] xl:max-2xl:h-[220px]">
+      <div className="bg-gradient-to-r from-[#001d4e] to-[#010000] px-4 py-8 sm:px-12 md:px-12 lg:px-12 xl:px-12 2xl:px-12 sm:py-10 md:py-10 h-[250px] sm:h-[220px] md:h[220px] lg:h[220px] xl:h[220px]  md:max-lg:h-[350px] lg:max-xl:h-[350px] xl:max-2xl:h-[220px]">
         <div className="mx-auto">
           {/* Back Button */}
           <Link
@@ -100,7 +100,7 @@ export default function Page() {
             <div className="relative w-full sm:max-w-sm sm:ml-auto md:max-lg:max-w-full lg:max-xl:max-w-full">
               <input
                 type="text"
-                placeholder="Search About Reports"
+                placeholder="Search About Partner"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full font-normal rounded-md focus:outline-none  bg-white py-2 pl-10 pr-4 text-gray-900 placeholder:text-gray-400/80 sm:py-2 sm:pl-16  text-sm sm:text-sm lg:text-[16px] xl:text-[16px] xl:max-2xl:text-[16px] xl:max-2xl:py-2 xl:max-2xl:pl-16 tracking-wide"
