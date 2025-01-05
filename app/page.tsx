@@ -99,17 +99,6 @@ export default function Page() {
             </h2>
             <div className="space-y-4 px-2">
               {searchResults.map((result, index) => (
-                // <Link
-                //   key={index}
-                //   href={result.link} // Use the dynamic link
-                //   className="group flex w-full items-center justify-between rounded-lg bg-[#ffffff] py-5 px-5 text-left transition-colors hover:bg-gray-200"
-                // >
-                //   <span className="text-gray-900 tracking-wide text-xl sm:text-md xl:max-2xl:text-xl">
-                //     {result.question}
-                //   </span>
-                //   <MdArrowForwardIos className="h-5 w-5 sm:h-6 sm:w-6 md:h-6 md:w-6 lg:h-6 lg:w-6 xl:max-2xl:h-6 xl:max-2xl:w-6 text-black transition-transform group-hover:translate-x-1" />
-                // </Link>
-
                 <div
                   key={index}
                   className="overflow-hidden rounded-lg bg-[#ffffff]"

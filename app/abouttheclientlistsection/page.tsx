@@ -18,8 +18,28 @@ export default function Page() {
   const [searchQuery, setSearchQuery] = useState("");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [popupImage, setPopupImage] = useState<string | null>(null);
+  const [searchResults, setSearchResults] = useState<
+    { question: string; answer: string }[]
+  >([]);
 
   const results: SearchResult[] = aboutClient;
+
+  const AllDocuments: SearchResult[] = aboutClient;
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    if (query.trim()) {
+      const results = AllDocuments.filter(
+        (section) =>
+          section.question.toLowerCase().includes(query.toLowerCase()) ||
+          section.answer.toLowerCase().includes(query.toLowerCase())
+      );
+      setSearchResults(results); // No type error now
+    } else {
+      setSearchResults([]);
+    }
+  };
+
   useEffect(() => {
     const handleImageClick = (event: Event) => {
       const target = event.target as HTMLImageElement;
@@ -67,7 +87,7 @@ export default function Page() {
                 type="text"
                 placeholder="Search About Client List"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => handleSearch(e.target.value)}
                 className="w-full font-normal rounded-md focus:outline-none  bg-white py-2 pl-10 pr-4 text-gray-900 placeholder:text-gray-400/80 sm:py-2 sm:pl-16  text-sm sm:text-sm lg:text-[16px] xl:text-[16px] xl:max-2xl:text-[16px] xl:max-2xl:py-2 xl:max-2xl:pl-16 tracking-wide"
               />
               <CiSearch className="absolute left-3 top-1/2  -translate-y-1/2 text-gray-400 sm:left-5 h-5 w-5 sm:h-7 sm:w-7 xl:max-2xl:w-7 xl:max-2xl:h-7" />
@@ -78,9 +98,51 @@ export default function Page() {
 
       {/* Results Section */}
       <div className="mx-auto py-8 sm:py-b">
-        {/* <h2 className="mb-8 text-xl sm:text-2xl font-semibold text-[#011e50] px-2 xl:max-2xl:text-2xl">
-          Search Results: 8 Results
-        </h2> */}
+        {searchResults.length > 0 && (
+          <div className="mb-8">
+            <h2 className="mb-8 text-xl sm:text-2xl font-semibold text-[#011e50] px-2 xl:max-2xl:text-xl">
+              Search Results: {searchResults.length} Results
+            </h2>
+            <div className="space-y-4 px-2">
+              {searchResults.map((result, index) => (
+                <div
+                  key={index}
+                  className="overflow-hidden rounded-lg bg-[#ffffff]"
+                >
+                  <button
+                    onClick={() =>
+                      setOpenIndex(openIndex === index ? null : index)
+                    }
+                    className="group flex w-full items-center justify-between p-4 text-left transition-colors hover:bg-gray-200"
+                  >
+                    <span className="text-gray-900 tracking-wide text-md sm:text-2xl md:text-lg lg:text-lg xl:text-lg xl:max-2xl:text-lg">
+                      {result.question}
+                    </span>
+                    <MdArrowForwardIos
+                      className={`h-5 w-5 sm:h-6 sm:w-6 md:h-6 md:w-6  lg:h-6 lg:w-6 xl:max-2xl:h-6 xl:max-2xl:w-6 text-black  transition-transform duration-200 ease-in-out group-hover:translate-x-1 ${
+                        openIndex === index ? "rotate-90" : ""
+                      }`}
+                    />
+                  </button>
+
+                  {/* Answer Panel */}
+                  <div
+                    className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out ${
+                      openIndex === index
+                        ? "max-h-full opacity-100"
+                        : "max-h-0 opacity-0"
+                    }`}
+                  >
+                    <div
+                      dangerouslySetInnerHTML={{ __html: result.answer }}
+                      className="border-t border-gray-200 bg-gray-50 p-4 text-gray-900 tracking-wide text-md sm:text-2xl md:text-lg lg:text-lg xl:text-lg xl:max-2xl:text-lg"
+                    ></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Results List */}
         <div className="space-y-4 px-2">
