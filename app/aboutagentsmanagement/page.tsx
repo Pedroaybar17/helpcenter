@@ -96,89 +96,94 @@ export default function Page() {
 
       {/* Results Section */}
       <div className="mx-auto py-8 sm:py-b">
-        {searchResults.length > 0 && (
-          <div className="mb-8">
-            <h2 className="mb-8 text-xl sm:text-2xl font-semibold text-[#011e50] px-2 xl:max-2xl:text-xl">
-              Search Results: {searchResults.length} Results
-            </h2>
-            <div className="space-y-4 px-2">
-              {searchResults.map((result, index) => (
-                <div
-                  key={index}
-                  className="overflow-hidden rounded-lg bg-[#ffffff]"
-                >
-                  <button
-                    onClick={() =>
-                      setOpenIndex(openIndex === index ? null : index)
-                    }
-                    className="group flex w-full items-center justify-between p-4 text-left transition-colors hover:bg-gray-200"
-                  >
-                    <span className="text-gray-900 tracking-wide text-md sm:text-2xl md:text-lg lg:text-lg xl:text-lg xl:max-2xl:text-lg">
-                      {result.question}
-                    </span>
-                    <MdArrowForwardIos
-                      className={`h-5 w-5 sm:h-6 sm:w-6 md:h-6 md:w-6  lg:h-6 lg:w-6 xl:max-2xl:h-6 xl:max-2xl:w-6 text-black  transition-transform duration-200 ease-in-out group-hover:translate-x-1 ${
-                        openIndex === index ? "rotate-90" : ""
-                      }`}
-                    />
-                  </button>
-
-                  {/* Answer Panel */}
+        {searchQuery.trim() ? (
+          // Show search results when there's a query
+          searchResults.length > 0 ? (
+            <div className="mb-8">
+              <h2 className="mb-8 text-xl sm:text-2xl font-semibold text-[#011e50] px-2 xl:max-2xl:text-xl">
+                Search Results: {searchResults.length} Results
+              </h2>
+              <div className="space-y-4 px-2">
+                {searchResults.map((result, index) => (
                   <div
-                    className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out ${
-                      openIndex === index
-                        ? "max-h-full opacity-100"
-                        : "max-h-0 opacity-0"
-                    }`}
+                    key={index}
+                    className="overflow-hidden rounded-lg bg-[#ffffff]"
                   >
+                    <button
+                      onClick={() =>
+                        setOpenIndex(openIndex === index ? null : index)
+                      }
+                      className="group flex w-full items-center justify-between p-4 text-left transition-colors hover:bg-gray-200"
+                    >
+                      <span className="text-gray-900 tracking-wide text-md sm:text-2xl md:text-lg lg:text-lg xl:text-lg xl:max-2xl:text-lg">
+                        {result.question}
+                      </span>
+                      <MdArrowForwardIos
+                        className={`h-5 w-5 sm:h-6 sm:w-6 md:h-6 md:w-6 lg:h-6 lg:w-6 xl:max-2xl:h-6 xl:max-2xl:w-6 text-black transition-transform duration-200 ease-in-out group-hover:translate-x-1 ${
+                          openIndex === index ? "rotate-90" : ""
+                        }`}
+                      />
+                    </button>
+
                     <div
-                      dangerouslySetInnerHTML={{ __html: result.answer }}
-                      className="border-t border-gray-200 bg-gray-50 p-4 text-gray-900 tracking-wide text-md sm:text-2xl md:text-lg lg:text-lg xl:text-lg xl:max-2xl:text-lg"
-                    ></div>
+                      className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out ${
+                        openIndex === index
+                          ? "max-h-full opacity-100"
+                          : "max-h-0 opacity-0"
+                      }`}
+                    >
+                      <div
+                        dangerouslySetInnerHTML={{ __html: result.answer }}
+                        className="border-t border-gray-200 bg-gray-50 p-4 text-gray-900 tracking-wide text-md sm:text-2xl md:text-lg lg:text-lg xl:text-lg xl:max-2xl:text-lg"
+                      ></div>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Results List */}
-        <div className="space-y-4 px-2">
-          {results.map((result, index) => (
-            <div
-              key={index}
-              className="overflow-hidden rounded-lg bg-[#ffffff]"
-            >
-              <button
-                onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="group flex w-full items-center justify-between p-4 text-left transition-colors hover:bg-gray-200"
-              >
-                <span className="text-gray-900 tracking-wide text-md sm:text-2xl md:text-lg lg:text-lg xl:text-lg xl:max-2xl:text-lg">
-                  {result.question}
-                </span>
-                <MdArrowForwardIos
-                  className={`h-5 w-5 sm:h-6 sm:w-6 md:h-6 md:w-6  lg:h-6 lg:w-6 xl:max-2xl:h-6 xl:max-2xl:w-6 text-black  transition-transform duration-200 ease-in-out group-hover:translate-x-1 ${
-                    openIndex === index ? "rotate-90" : ""
-                  }`}
-                />
-              </button>
-
-              {/* Answer Panel */}
-              <div
-                className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out ${
-                  openIndex === index
-                    ? "max-h-full opacity-100"
-                    : "max-h-0 opacity-0"
-                }`}
-              >
-                <div
-                  dangerouslySetInnerHTML={{ __html: result.answer }}
-                  className="border-t border-gray-200 bg-gray-50 p-4 text-gray-900 tracking-wide text-md sm:text-2xl md:text-lg lg:text-lg xl:text-lg xl:max-2xl:text-lg"
-                ></div>
+                ))}
               </div>
             </div>
-          ))}
-        </div>
+          ) : (
+            <div className="px-2 text-gray-500">No results found.</div>
+          )
+        ) : (
+          // Show all results when there's no query
+          <div className="space-y-4 px-2">
+            {results.map((result, index) => (
+              <div
+                key={index}
+                className="overflow-hidden rounded-lg bg-[#ffffff]"
+              >
+                <button
+                  onClick={() =>
+                    setOpenIndex(openIndex === index ? null : index)
+                  }
+                  className="group flex w-full items-center justify-between p-4 text-left transition-colors hover:bg-gray-200"
+                >
+                  <span className="text-gray-900 tracking-wide text-md sm:text-2xl md:text-lg lg:text-lg xl:text-lg xl:max-2xl:text-lg">
+                    {result.question}
+                  </span>
+                  <MdArrowForwardIos
+                    className={`h-5 w-5 sm:h-6 sm:w-6 md:h-6 md:w-6 lg:h-6 lg:w-6 xl:max-2xl:h-6 xl:max-2xl:w-6 text-black transition-transform duration-200 ease-in-out group-hover:translate-x-1 ${
+                      openIndex === index ? "rotate-90" : ""
+                    }`}
+                  />
+                </button>
+
+                <div
+                  className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out ${
+                    openIndex === index
+                      ? "max-h-full opacity-100"
+                      : "max-h-0 opacity-0"
+                  }`}
+                >
+                  <div
+                    dangerouslySetInnerHTML={{ __html: result.answer }}
+                    className="border-t border-gray-200 bg-gray-50 p-4 text-gray-900 tracking-wide text-md sm:text-2xl md:text-lg lg:text-lg xl:text-lg xl:max-2xl:text-lg"
+                  ></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       {popupImage &&
         ReactDOM.createPortal(
