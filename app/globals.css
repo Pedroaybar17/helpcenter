@@ -19,3 +19,21 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.imgsize {
+  width: 50%; /* Default for large screens */
+}
+
+@media (max-width: 1024px) {
+  /* Target tablets and smaller devices */
+  .imgsize {
+    width: 75%; /* Adjust for iPads/tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  /* Target mobile screens */
+  .imgsize {
+    width: 100%; /* Full width for mobile devices */
+  }
+}
